@@ -1,11 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Document</title>
-	<link rel="stylesheet" href="css/main.css">
-</head>
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+    <title>Document</title>
+{% endblock %}
+
+{% block content %}
 <body>
 	<div class="authPopup popup">
 		<div class="popup__title authPopup__title">Войти по коду</div>
@@ -82,5 +82,4 @@
 			<button class="tipsPopup__btn popup__btn">Оплатить</button>
 		</form>
 	</div>
-</body>
-</html>
+{% endblock %}

@@ -5,8 +5,8 @@ from phonenumber_field.modelfields import PhoneNumberField
 class Salon(models.Model):
     name = models.CharField(max_length=100)
     address = models.CharField(max_length=200)
-    contact_info = models.CharField(max_length=200)
-    description = models.TextField()
+    contact_info = models.CharField(max_length=200, blank=True, null=True)
+    description = models.TextField(blank=True, null=True)
     photo = models.ImageField(upload_to='salon_photos', blank=True)
 
     def __str__(self):
@@ -15,9 +15,9 @@ class Salon(models.Model):
 
 class Master(models.Model):
     first_name = models.CharField(max_length=50)
-    last_name = models.CharField(max_length=50)
-    speciality = models.TextField()
+    last_name = models.CharField(max_length=50, )
     salon = models.ForeignKey(Salon, on_delete=models.CASCADE)
+    title = models.CharField(max_length=100, blank=True, null=True)
     services = models.ManyToManyField('Service')
     photo = models.ImageField(upload_to='master_photos', blank=True)
     employment_date = models.DateField(blank=True, null=True)
@@ -37,13 +37,13 @@ class Service(models.Model):
 
 
 class Client(models.Model):
-    first_name = models.CharField(max_length=50)
-    last_name = models.CharField(max_length=50)
+    first_name = models.CharField(max_length=50, blank=True, null=True)
+    last_name = models.CharField(max_length=50, blank=True, null=True)
     phone_number = PhoneNumberField()
-    email = models.EmailField()
+    email = models.EmailField(blank=True, null=True)
 
     def __str__(self):
-        return f"{self.first_name} {self.last_name}"
+        return f"{self.first_name} {self.last_name} {self.phone_number}"
 
 
 class Schedule(models.Model):
@@ -60,7 +60,6 @@ class Appointment(models.Model):
     master = models.ForeignKey(Master, on_delete=models.CASCADE)
     service = models.ForeignKey(Service, on_delete=models.CASCADE)
     date_time = models.DateTimeField()
-    status = models.CharField(max_length=50)
     is_paid = models.BooleanField(default=False)
 
     def __str__(self):

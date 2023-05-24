@@ -1,0 +1,93 @@
+[
+    {
+        "model": "beauty_saloon.salon",
+        "pk": 1,
+        "fields": {
+            "name": "BeautyCity Пушкинская",
+            "address": "ул. Пушкинская, 76А",
+            "contact_info": "+9 828 929 99 99",
+            "description": "Здесь продающий текст",
+            "photo": "salon_photos/salon1.jpg"
+        }
+    },
+    {
+        "model": "beauty_saloon.master",
+        "pk": 1,
+        "fields": {
+            "first_name": "Елизавета",
+            "last_name": "Лапина",
+            "salon": 1,
+            "title": "Мастер маникюра",
+            "photo": "",
+            "employment_date": "2020-05-15",
+            "services": [
+                1
+            ]
+        }
+    },
+    {
+        "model": "beauty_saloon.master",
+        "pk": 2,
+        "fields": {
+            "first_name": "Анастасия",
+            "last_name": "Сергеева",
+            "salon": 1,
+            "title": "Парикмахер",
+            "photo": "",
+            "employment_date": "2020-05-15",
+            "services": [
+                2
+            ]
+        }
+    },
+    {
+        "model": "beauty_saloon.service",
+        "pk": 1,
+        "fields": {
+            "name": "Дневной макияж",
+            "price": "1400.00",
+            "photo": "service_photos/service1.jpg",
+            "duration": "00:30:00"
+        }
+    },
+    {
+        "model": "beauty_saloon.service",
+        "pk": 2,
+        "fields": {
+            "name": "Укладка",
+            "price": "1500.00",
+            "photo": "service_photos/service2.jpg",
+            "duration": "00:30:00"
+        }
+    },
+    {
+        "model": "beauty_saloon.client",
+        "pk": 1,
+        "fields": {
+            "first_name": "Ольга",
+            "last_name": "Носкова",
+            "phone_number": "+74952576666",
+            "email": null
+        }
+    },
+    {
+        "model": "beauty_saloon.schedule",
+        "pk": 1,
+        "fields": {
+            "master": 1,
+            "start_time": "2023-05-07T14:10:04Z",
+            "end_time": "2023-05-31T14:10:08Z"
+        }
+    },
+    {
+        "model": "beauty_saloon.appointment",
+        "pk": 1,
+        "fields": {
+            "client": 1,
+            "master": 1,
+            "service": 1,
+            "date_time": "2023-05-24T14:10:30Z",
+            "is_paid": false
+        }
+    }
+]

@@ -83,3 +83,14 @@ class PromoCode(models.Model):
 
     def __str__(self):
         return self.code
+
+
+class Review(models.Model):
+    client = models.ForeignKey(Client, on_delete=models.CASCADE)
+    master = models.ForeignKey(Master, on_delete=models.CASCADE)
+    rating = models.IntegerField()
+    comment = models.TextField()
+    date = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Review by {self.client} for {self.master}"

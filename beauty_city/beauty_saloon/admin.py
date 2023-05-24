@@ -36,7 +36,7 @@ class ScheduleAdmin(admin.ModelAdmin):
 
 
 @admin.register(Appointment)
-class AppointmentAdmin(admin.ModelAdmin)
+class AppointmentAdmin(admin.ModelAdmin):
     list_display = ('client', 'master', 'service', 'date_time')
     list_filter = ('client', 'master', 'service', 'date_time')
     search_fields = ('client', 'master', 'service', 'date_time')

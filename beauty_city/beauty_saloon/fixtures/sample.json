@@ -41,13 +41,36 @@
         }
     },
     {
+        "model": "beauty_saloon.servicecategory",
+        "pk": 1,
+        "fields": {
+            "name": "Парикмахерские услуги"
+        }
+    },
+    {
+        "model": "beauty_saloon.servicecategory",
+        "pk": 2,
+        "fields": {
+            "name": "Ногтевой сервис"
+        }
+    },
+    {
+        "model": "beauty_saloon.servicecategory",
+        "pk": 3,
+        "fields": {
+            "name": "Макияж"
+        }
+    },
+
+    {
         "model": "beauty_saloon.service",
         "pk": 1,
         "fields": {
             "name": "Дневной макияж",
             "price": "1400.00",
             "photo": "service_photos/service1.jpg",
-            "duration": "00:30:00"
+            "duration": "00:30:00",
+            "category": 3
         }
     },
     {
@@ -57,7 +80,8 @@
             "name": "Укладка",
             "price": "1500.00",
             "photo": "service_photos/service2.jpg",
-            "duration": "00:30:00"
+            "duration": "00:30:00",
+            "category": 1
         }
     },
     {

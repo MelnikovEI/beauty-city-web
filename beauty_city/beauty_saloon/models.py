@@ -26,11 +26,19 @@ class Master(models.Model):
         return f"{self.first_name} {self.last_name}"
 
 
+class ServiceCategory(models.Model):
+    name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
+
+
 class Service(models.Model):
     name = models.CharField(max_length=100)
     price = models.DecimalField(max_digits=8, decimal_places=2)
     photo = models.ImageField(upload_to='service_photos', blank=True)
     duration = models.DurationField(default='00:30:00')
+    category = models.ForeignKey(ServiceCategory, on_delete=models.CASCADE, blank=True, null=True)
 
     def __str__(self):
         return self.name

@@ -124,30 +124,6 @@
                 </div>
                 {% endfor %}
 
-                <div class="col-md-3">
-                    <div class="cardBlock services__block">
-                        <img src="img/services/service5.svg" alt="service"
-                             class="services__block_img">
-                        <div class="services__elems">
-                            <div class="services__elems_title">Педикюр</div>
-                            <div class="services__elems_light">1 000 ₽</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="cardBlock services__block">
-                        <img src="img/services/service6.svg" alt="service"
-                             class="services__block_img">
-                        <div class="services__elems">
-                            <div class="services__elems_title">Окрашивание
-                                волос
-                            </div>
-                            <div class="services__elems_light">5 000 ₽</div>
-                        </div>
-                    </div>
-                </div>
-
-
             </div>
         </div>
     </div>
@@ -168,6 +144,39 @@
             </div>
 
             <div class="row mastersSlider">
+                {% for master in masters %}
+                    <div class="col-md-3">
+                        <div class="cardBlock masters__block">
+                            <div class="masters__header fic">
+                                <img src="{{ master.photo.url }}" alt="master"
+                                     class="masters__header_img">
+                                <div class="masters__header_elmes">
+                                    <div class="masters__header_name">{{ master }} </div>
+                                        <img src="{% static 'img/rating.svg' %}" alt="rating"
+                                         class="masters__header_rating">
+                                    <div class="masters__header_reviews">24 отзыва
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="masters__main">
+                                <div class="masters__main_speciality"> СПЕЦИАЛЬНОСТЬ: </div>
+                                <div class="masters__main_intro">Мастер маникюра </div>
+                            </div>
+                            <div class="masters__footer fic">
+                                <div class="masters__footer_block">
+                                    <div class="masters__footer_light">СТАЖ
+                                        РАБОТЫ:
+                                    </div>
+                                    <div class="masters__footer_num">3 г. 10 мес.
+                                    </div>
+                                </div>
+                                <button class="masters__footer_btn">Записаться
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+
                 <div class="col-md-3">
                     <div class="cardBlock masters__block">
                         <div class="masters__header fic">

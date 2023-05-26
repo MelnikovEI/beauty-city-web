@@ -2480,3 +2480,8 @@ color: #262626;
 		width: 95%
 	}
 }
+.tips_title {
+    padding: 20px 30px 30px 30px;
+    margin: 20px 30px 30px 30px;
+    width: 600px;
+}

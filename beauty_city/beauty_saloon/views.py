@@ -1,13 +1,22 @@
 import uuid
 
+
 from django.shortcuts import render, redirect
 from django.conf import settings
-from beauty_saloon.models import Appointment, Client, Tip
+from beauty_saloon.models import Appointment, Client, Tip, Salon, Master, Service
 
 from yookassa import Configuration, Payment
 
+
 def index(request):
-    context = {}
+    salons = Salon.objects.all()
+    masters = Master.objects.all()
+    services = Service.objects.all()
+    context = {
+        "salons": salons,
+        "masters": masters,
+        "services": services
+    }
     return render(request, 'index.html', context)
 
 

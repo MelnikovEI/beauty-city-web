@@ -32,8 +32,6 @@ def service(request):
 def serviceFinally(request, appointment_id):
     appointment = Appointment.objects.get(id=appointment_id)
     context = {'appointment': appointment}
-    allowed_host = settings.ALLOWED_HOSTS[0]
-    r = f'/popup/{appointment_id}'
 
     if request.method == 'POST':
         client = Client.objects.update_or_create(
@@ -42,7 +40,7 @@ def serviceFinally(request, appointment_id):
         )
         appointment.client = client[0]
         appointment.save()
-        return redirect(r)
+        return redirect(f'/popup/{appointment_id}')
     return render(request, 'serviceFinally.html', context)
 
 
@@ -51,12 +49,14 @@ def payment(request, appointment_id):
     Configuration.account_id = settings.YOOKASSA_SHOP_ID
     Configuration.secret_key = settings.YOOKASSA_API_KEY
     allowed_host = settings.ALLOWED_HOSTS
+    port = settings.PORT
+
     payment = Payment.find_one(appointment.payment_id)
     if payment.paid:
         appointment.is_paid = True
         appointment.save()
         client_id = appointment.client.id
-        return redirect(f"http://{allowed_host[0]}:7777/notes/{client_id}")
+        return redirect(f"http://{allowed_host[0]}:{port}/notes/{client_id}")
     return render(request, 'paid-not-success.html')
 
 
@@ -66,29 +66,32 @@ def popup(request, appointment_id):
     Configuration.account_id = settings.YOOKASSA_SHOP_ID
     Configuration.secret_key = settings.YOOKASSA_API_KEY
     allowed_host = settings.ALLOWED_HOSTS[0]
+    port = settings.PORT
+
     if request.method == 'POST':
         Tip.objects.update_or_create(
             amount=request.POST['value_tips'],
             client=appointment.client,
             master=appointment.master
         )
-        payment1 = Payment.create({
+
+        payment = Payment.create({
             "amount": {
                 "value": appointment.service.price + int(request.POST['value_tips']),
                 "currency": "RUB"
             },
             "confirmation": {
                 "type": "redirect",
-                "return_url": f"http://"
-                              f"{allowed_host}:7777/payment/{appointment_id}/"
+                "return_url": f"http://{allowed_host}:{port}/payment/{appointment_id}/"
             },
             "capture": True,
             "description": f"Услуга №{appointment.id} - {appointment.service.name}"
                            f"Цена - {appointment.service.price}"
         }, uuid.uuid4())
-        appointment.payment_id = payment1.id
+
+        appointment.payment_id = payment.id
         appointment.save()
-        redirect_url = payment1.confirmation.confirmation_url
+        redirect_url = payment.confirmation.confirmation_url
         return redirect(redirect_url)
     return render(request, 'popup.html', context)
 
@@ -96,6 +99,7 @@ def popup(request, appointment_id):
 def notes(request, client_id):
     client = Client.objects.get(id=client_id)
     appointments = client.appointment_set.all
+
     context = {
         'client': client,
         'appointments': appointments

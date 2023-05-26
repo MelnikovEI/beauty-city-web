@@ -76,7 +76,7 @@
                 {% for i in '012' %}
                 <div class="col-6 col-md-4 col-lg-4 col-xl-3 decVis">
                     <div class="salons__block">
-                        <img src="img/salons/salon1.svg" alt="salon"
+                        <img src={% static 'img/salons/salon1.svg' %} alt="salon"
                              class="salons__block_img">
                         <div class="salons__elems">
                             <div class="salons__elems_title">BeautyCity
@@ -148,8 +148,14 @@
                     <div class="col-md-3">
                         <div class="cardBlock masters__block">
                             <div class="masters__header fic">
-                                <img src="{{ master.photo.url }}" alt="master"
+                                {% if master.photo %}
+                                <img src="{{ master.photo.url }}" alt="master" style="width:57px; border-radius: 50%;"
                                      class="masters__header_img">
+                                {% else %}
+                                <img src="{% static 'img/masters/avatar/all.svg' %}" alt="master" style="width:57px; border-radius: 50%;
+                                     class="masters__header_img">
+                                {% endif %}
+
                                 <div class="masters__header_elmes">
                                     <div class="masters__header_name">{{ master }} </div>
                                         <img src="{% static 'img/rating.svg' %}" alt="rating"
@@ -200,7 +206,7 @@
                 <div class="col-md-3">
                     <div class="reviews__block">
                         <div class="reviews__name">Светлана Г.</div>
-                        <img src="img/rating.svg" alt="rating"
+                        <img src="{% static 'img/rating.svg' %}" alt="rating"
                              class="reviews__header_rating">
                         <div class="reviews__block_text">
                             Отличное место для красоты, очень доброжелательный и
@@ -215,7 +221,7 @@
                 <div class="col-md-3">
                     <div class="reviews__block">
                         <div class="reviews__name">Ольга Н.</div>
-                        <img src="img/rating.svg" alt="rating"
+                        <img src="{% static 'img/rating.svg' %}" alt="rating"
                              class="reviews__header_rating">
                         <div class="reviews__block_text">
                             Мне всё лень было отзыв писать, но вот "руки дошли".
@@ -229,7 +235,7 @@
                 <div class="col-md-3">
                     <div class="reviews__block">
                         <div class="reviews__name">Ольга Н.</div>
-                        <img src="img/rating.svg" alt="rating"
+                        <img src="{% static 'img/rating.svg' %}" alt="rating"
                              class="reviews__header_rating">
                         <div class="reviews__block_text">
                             Мне всё лень было отзыв писать, но вот "руки дошли".
@@ -243,7 +249,7 @@
                 <div class="col-md-3">
                     <div class="reviews__block">
                         <div class="reviews__name">Елена В.</div>
-                        <img src="img/rating.svg" alt="rating"
+                        <img src="{% static 'img/rating.svg' %}" alt="rating"
                              class="reviews__header_rating">
                         <div class="reviews__block_text">
                             Делала процедуру микротоки у мастера Светланы .
@@ -258,7 +264,7 @@
                 <div class="col-md-3">
                     <div class="reviews__block">
                         <div class="reviews__name">Виктория Г.</div>
-                        <img src="img/rating.svg" alt="rating"
+                        <img src="{% static 'img/rating.svg' %}" alt="rating"
                              class="reviews__header_rating">
                         <div class="reviews__block_text">
                             Была на педикюре у Ольги. Очень понравилось. Все
@@ -271,7 +277,7 @@
                 <div class="col-md-3">
                     <div class="reviews__block">
                         <div class="reviews__name">Анастасия Е.</div>
-                        <img src="img/rating.svg" alt="rating"
+                        <img src="{% static 'img/rating.svg' %}" alt="rating"
                              class="reviews__header_rating">
                         <div class="reviews__block_text">
                             Сегодня прокололи ушки дочке в этом салоне) Остались
@@ -285,7 +291,7 @@
                 <div class="col-md-3">
                     <div class="reviews__block">
                         <div class="reviews__name">Алина Ц.</div>
-                        <img src="img/rating.svg" alt="rating"
+                        <img src="{% static 'img/rating.svg' %}" alt="rating"
                              class="reviews__header_rating">
                         <div class="reviews__block_text">
                             Отличный салон, сервис на самом высоком уровне, всем
@@ -338,7 +344,7 @@
                 <div class="col-md-12 col-lg-3">
                     <div class="contacts__locationBlock">
                         <div class="contacts__location fic">
-                            <img src="img/location.svg" alt="location"
+                            <img src="{% static 'img/location.svg' %}" alt="location"
                                  class="contacts__location_icon">
                             <div class="contacts__location_info">
                                 <div class="contacts__location_intro">ул.
@@ -350,7 +356,7 @@
                             </div>
                         </div>
                         <div class="contacts__location fic">
-                            <img src="img/location.svg" alt="location"
+                            <img src="{% static 'img/location.svg' %}" alt="location"
                                  class="contacts__location_icon">
                             <div class="contacts__location_info">
                                 <div class="contacts__location_intro">ул.
@@ -362,7 +368,7 @@
                             </div>
                         </div>
                         <div class="contacts__location fic">
-                            <img src="img/location.svg" alt="location"
+                            <img src="{% static 'img/location.svg' %}" alt="location"
                                  class="contacts__location_icon">
                             <div class="contacts__location_info">
                                 <div class="contacts__location_intro">ул.
@@ -378,13 +384,13 @@
                         <div class="contacts__social">
                             <div class="contacts__social_title">соц. сети</div>
                             <div class="contacts__social_block fic">
-                                <a href=""><img src="img/wa.svg" alt="wa"
+                                <a href=""><img src="{% static 'img/wa.svg' %}" alt="wa"
                                                 class="contacts__social_icon"></a>
-                                <a href=""><img src="img/vk.svg" alt="vk"
+                                <a href=""><img src="{% static 'img/vk.svg' %}" alt="vk"
                                                 class="contacts__social_icon"></a>
-                                <a href=""><img src="img/tg.svg" alt="tg"
+                                <a href=""><img src="{% static 'img/tg.svg' %}" alt="tg"
                                                 class="contacts__social_icon"></a>
-                                <a href=""><img src="img/insta.svg" alt="insta"
+                                <a href=""><img src="{% static 'img/insta.svg' %}" alt="insta"
                                                 class="contacts__social_icon"></a>
                             </div>
                         </div>
@@ -413,7 +419,7 @@
 
 <div style="display: none;">
     <div class="box-modal authPopup popup" id="authModal">
-        <div class="box-modal_close arcticmodal-close"><img src="img/x.svg"
+        <div class="box-modal_close arcticmodal-close"><img src="{% static 'img/x.svg' %}"
                                                             alt="x"></div>
         <div class="popup__title authPopup__title">Войти по коду</div>
         <p class="popup__text authPopup__text">Введите свой номер телефона, мы
@@ -435,7 +441,7 @@
 </div>
 <div style="display: none;">
     <div class="box-modal confirmPopup popup" id="confirmModal">
-        <div class="box-modal_close arcticmodal-close"><img src="img/x.svg"
+        <div class="box-modal_close arcticmodal-close"><img src="{% static 'img/x.svg' %}"
                                                             alt="x"></div>
         <div class="popup__title confirmPopup__title">Подтвердите номер</div>
         <p class="popup__text confirmPopup__text">Введите код, полученный по SMS

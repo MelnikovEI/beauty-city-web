@@ -72,15 +72,18 @@ def popup(request, appointment_id):
     port = settings.PORT
 
     if request.method == 'POST':
+        tips = request.POST['value_tips']
+        if not tips:
+            tips = 0
         Tip.objects.update_or_create(
-            amount=request.POST['value_tips'],
+            amount=tips,
             client=appointment.client,
             master=appointment.master
         )
 
         payment = Payment.create({
             "amount": {
-                "value": appointment.service.price + int(request.POST['value_tips']),
+                "value": appointment.service.price + int(tips),
                 "currency": "RUB"
             },
             "confirmation": {

@@ -23,9 +23,10 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index, name='index'),
     path('service/', views.service, name='service'),
-    path('serviceFinally/', views.serviceFinally, name='serviceFinally'),
-    path('popup/', views.popup, name='popup'),
-    path('notes/', views.notes, name='notes'),
+    path('serviceFinally/<int:appointment_id>/', views.serviceFinally, name='serviceFinally'),
+    path('popup/<int:appointment_id>/', views.popup, name='popup'),
+    path('payment/<int:appointment_id>/', views.payment, name='payment'),
+    path('notes/<int:client_id>/', views.notes, name='notes'),
     path('admin/', views.admin, name='admin'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 if settings.DEBUG:

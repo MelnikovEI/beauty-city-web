@@ -1,4 +1,4 @@
-django==3.2.*
+django==3.*
 environs==9.5.0
 Pillow==9.4.0
 yookassa==2.3.5

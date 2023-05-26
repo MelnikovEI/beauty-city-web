@@ -19,7 +19,7 @@ class Master(models.Model):
     salon = models.ForeignKey(Salon, on_delete=models.CASCADE)
     title = models.CharField(max_length=100, blank=True, null=True)
     services = models.ManyToManyField('Service')
-    photo = models.ImageField(upload_to='master_photos', blank=True)
+    photo = models.CharField(max_length=50)
     employment_date = models.DateField(blank=True, null=True)
 
     def __str__(self):
@@ -56,10 +56,11 @@ class Schedule(models.Model):
 
 
 class Appointment(models.Model):
-    client = models.ForeignKey(Client, on_delete=models.CASCADE)
+    client = models.ForeignKey(Client, on_delete=models.CASCADE, blank=True, null=True)
     master = models.ForeignKey(Master, on_delete=models.CASCADE)
     service = models.ForeignKey(Service, on_delete=models.CASCADE)
     date_time = models.DateTimeField()
+    payment_id = models.CharField(max_length=50, blank=True, null=True)
     is_paid = models.BooleanField(default=False)
 
     def __str__(self):

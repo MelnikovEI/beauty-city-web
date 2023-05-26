@@ -1,9 +1,10 @@
 import uuid
-
+from datetime import datetime
 
 from django.shortcuts import render, redirect
 from django.conf import settings
-from beauty_saloon.models import Appointment, Client, Tip, Salon, Master, Service
+from beauty_saloon.models import Appointment, Client, Tip, Salon, Master, \
+    Service, Review
 
 from yookassa import Configuration, Payment
 
@@ -12,10 +13,12 @@ def index(request):
     salons = Salon.objects.all()
     masters = Master.objects.all()
     services = Service.objects.all()
+    review = Review.objects.all()
     context = {
         "salons": salons,
         "masters": masters,
-        "services": services
+        "services": services,
+        "reviews": review
     }
     return render(request, 'index.html', context)
 
@@ -98,11 +101,21 @@ def popup(request, appointment_id):
 
 def notes(request, client_id):
     client = Client.objects.get(id=client_id)
-    appointments = client.appointment_set.all
+    appointments = client.appointment_set.all()
+    future_appointment = []
+    last_appointment = []
+    x = datetime.now()
+
+    for appointment in appointments:
+        if appointment.date_time.day <= datetime.now().day:
+            future_appointment.append(appointment)
+        else:
+            last_appointment.append(appointment)
 
     context = {
         'client': client,
-        'appointments': appointments
+        'future_appointment': future_appointment,
+        'last_appointment': last_appointment,
     }
     return render(request, 'notes.html', context)
 

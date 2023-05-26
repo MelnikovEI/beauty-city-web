@@ -39,7 +39,8 @@
 									</div>
 									<div class="serviceFinally__form_content__block fic">
 										<div class="serviceFinally__form_content__items fic">
-										  	<img src="{% static appointment.master.photo %}" alt="avatar" class="accordion__block_img">
+										  	<img
+													src="{{ appointment.master.photo.url }}" alt="avatar" class="accordion__block_img" style="width: 80px">
 										  	<div class="accordion__block_master">{{ appointment.master.first_name }} {{ appointment.master.last_name }}</div>
 									    </div>
 									    <div class="serviceFinally__form_content__item fic">

@@ -1,8 +1,17 @@
 from django.shortcuts import render
 
+from .models import Salon, Master, Service
+
 
 def index(request):
-    context = {}
+    salons = Salon.objects.all()
+    masters = Master.objects.all()
+    services = Service.objects.all()
+    context = {
+        "salons": salons,
+        "masters": masters,
+        "services": services
+    }
     return render(request, 'index.html', context)
 
 

@@ -17,7 +17,7 @@ class Master(models.Model):
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50, )
     salon = models.ForeignKey(Salon, on_delete=models.CASCADE)
-    title = models.CharField(max_length=100, blank=True, null=True)
+    speciality = models.CharField(max_length=100, null=True)
     services = models.ManyToManyField('Service')
     photo = models.ImageField(upload_to='master_photos', blank=True)
     employment_date = models.DateField(blank=True, null=True)

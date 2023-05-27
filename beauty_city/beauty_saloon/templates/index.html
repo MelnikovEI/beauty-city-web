@@ -164,8 +164,10 @@
                                 </div>
                             </div>
                             <div class="masters__main">
-                                <div class="masters__main_speciality"> СПЕЦИАЛЬНОСТЬ: </div>
-                                <div class="masters__main_intro">Мастер маникюра </div>
+                                {% if master.speciality %}
+                                    <div class="masters__main_speciality"> Специальность: </div>
+                                    <div class="masters__main_intro">{{ master.speciality }} </div>
+                                {% endif %}
                             </div>
                             <div class="masters__footer fic">
                                 <div class="masters__footer_block">

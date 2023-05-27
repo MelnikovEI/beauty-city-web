@@ -89,7 +89,7 @@ class PromoCode(models.Model):
 
 class Review(models.Model):
     client = models.ForeignKey(Client, on_delete=models.CASCADE)
-    master = models.ForeignKey(Master, on_delete=models.CASCADE)
+    master = models.ForeignKey(Master, on_delete=models.CASCADE, related_name='reviews')
     rating = models.IntegerField()
     comment = models.TextField()
     date = models.DateTimeField(auto_now_add=True)

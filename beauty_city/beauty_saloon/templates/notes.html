@@ -27,8 +27,13 @@
 					<div class="col-md-2">
 						<div class="accaunt__left">
 							<div class="accaunt__ava fic">
-								<img src="{% static 'img/avatars/1.svg' %}" alt="avatar" class="accaunt__ava_img">
-								<span class="accaunt__ava_name">Алиса И.</span>
+									{% if client.photo.url is not null %}
+										<img src="{{ client.photo.url }}" alt="avatar" class="accaunt__ava_img" style="max-width: 40%">
+									{% else %}
+										<img src="{% static 'img/avatars/images.jpeg' %}" alt="avatar" class="accaunt__ava_img" style="max-width: 40%">
+									{% endif %}
+
+								<span class="accaunt__ava_name">{{ client.first_name }}</span>
 							</div>
 							<div class="accaunt__settings fic">
 								<a href="#" class="accaunt__settings_intro">Изменить профиль</a>
@@ -93,9 +98,9 @@
 						</div>
 						<div class="notes__content notes__content_upcoming">	
 							<div class="notes__main_title">ПРЕДСТОЯЩИЕ</div>
-							{% for appointment in appointments %}
-							<div class="notes__main_block">
-								<img src="img/services/service3.svg" alt="service1" class="notes__main_block__img">
+							{% for appointment in future_appointment %}
+								<div class="notes__main_block">
+								<img src="{{ appointment.service.photo.url }}" alt="service1" class="notes__main_block__img">
 								<div class="notes__main_block__elems">
 									<div class="notes__main_block__header fic">
 										<div class="notes__main_block__header__itesm fic">
@@ -103,7 +108,7 @@
 													class="notes__main_number">Запись №{{ appointment.id }}</div>
 											<div class="notes__main_address">ул. Пушкинская, д. 78А</div>
 										</div>
-										<div class="notes__main_pay unPaid">ОПЛАЧЕНО</div>
+										<div class="notes__main_pay payid">ОПЛАЧЕНО</div>
 									</div>
 									<div class="notes__main_block__main ">
 										<div class="notes__main_block__main_items">
@@ -137,15 +142,21 @@
 								</div>
 							</div>
 							{% endfor %}
-							<div class="notes__main_block">
-								<img src="img/services/service1.svg" alt="service1" class="notes__main_block__img">
+						</div>
+
+						<div class="notes__content notes__content_history">	
+							<div class="notes__main_title">ПРОШЕДШИЕ</div>
+							{% for appointment in last_appointment %}
+								<div class="notes__main_block">
+								<img src="{{ appointment.service.photo.url }}" alt="service1" class="notes__main_block__img">
 								<div class="notes__main_block__elems">
 									<div class="notes__main_block__header fic">
 										<div class="notes__main_block__header__itesm fic">
-											<div class="notes__main_number">Запись №23184</div>
+											<div
+													class="notes__main_number">Запись №{{ appointment.id }}</div>
 											<div class="notes__main_address">ул. Пушкинская, д. 78А</div>
 										</div>
-										<div class="notes__main_pay unPaid">НЕОПЛАЧЕНО</div>
+										<div class="notes__main_pay payid">ОПЛАЧЕНО</div>
 									</div>
 									<div class="notes__main_block__main ">
 										<div class="notes__main_block__main_items">
@@ -154,8 +165,8 @@
 												<div class="notes__main_block__main_elems__intro otes__main_blockWidth">Цена:</div>
 											</div>
 											<div class="notes__main_block__main_elems fic">
-												<div class="notes__main_block__main_elems__name otes__main_blockWidth">Дневной макияж</div>
-												<div class="notes__main_block__main_elems__price otes__main_blockWidth">1 400 руб</div>
+												<div class="notes__main_block__main_elems__name otes__main_blockWidth">{{ appointment.service.name }}</div>
+												<div class="notes__main_block__main_elems__price otes__main_blockWidth">{{ appointment.service.price }} ₽</div>
 											</div>
 										</div>
 										<div class="notes__main_block__main_items">
@@ -164,8 +175,8 @@
 												<div class="notes__main_block__main_elems__intro otes__main_blockWidth">Дата и время:</div>
 											</div>
 											<div class="notes__main_block__main_elems fic">
-												<div class="notes__main_block__main_elems__name otes__main_blockWidth">Ева Колесова</div>
-												<div class="notes__main_block__main_elems__date otes__main_blockWidth">29 ноября - 13:30 </div>
+												<div class="notes__main_block__main_elems__name otes__main_blockWidth">{{ appointment.master.first_name }} {{ appointment.master.last_name }}</div>
+												<div class="notes__main_block__main_elems__date otes__main_blockWidth">{{ appointment.date_time }}</div>
 											</div>
 										</div>
 									</div>
@@ -178,90 +189,7 @@
 									</div>
 								</div>
 							</div>
-						</div>
-
-						<div class="notes__content notes__content_history">	
-							<div class="notes__main_title">ПРОШЕДШИЕ</div>
-							<div class="notes__main_block">
-								<img src="img/services/service1.svg" alt="service1" class="notes__main_block__img">
-								<div class="notes__main_block__elems">
-									<div class="notes__main_block__header fic">
-										<div class="notes__main_block__header__itesm fic">
-											<div class="notes__main_number">Запись №23184</div>
-											<div class="notes__main_address">ул. Пушкинская, д. 78А</div>
-										</div>
-										<div class="notes__main_pay payid">ОПЛАЧЕНО</div>
-									</div>
-									<div class="notes__main_block__main ">
-										<div class="notes__main_block__main_items">
-											<div class="notes__main_block__main_elems fic">
-												<div class="notes__main_block__main_elems__intro otes__main_blockWidth">Услуга:</div>
-												<div class="notes__main_block__main_elems__intro otes__main_blockWidth">Цена:</div>
-											</div>
-											<div class="notes__main_block__main_elems fic">
-												<div class="notes__main_block__main_elems__name otes__main_blockWidth">Дневной макияж</div>
-												<div class="notes__main_block__main_elems__price otes__main_blockWidth">1 400 руб</div>
-											</div>
-										</div>
-										<div class="notes__main_block__main_items">
-											<div class="notes__main_block__main_elems fic">
-												<div class="notes__main_block__main_elems__intro otes__main_blockWidth">Мастер:</div>
-												<div class="notes__main_block__main_elems__intro otes__main_blockWidth">Дата и время:</div>
-											</div>
-											<div class="notes__main_block__main_elems fic">
-												<div class="notes__main_block__main_elems__name otes__main_blockWidth">Ева Колесова</div>
-												<div class="notes__main_block__main_elems__date otes__main_blockWidth">29 ноября - 13:30 </div>
-											</div>
-										</div>
-									</div>
-									<hr class="notes__block_hr">
-									<div class="notes__footer fic">
-										<a href="#" class="notes__footer_link rewiewPopupOpen">Оставить отзыв</a>
-										<a href="#" class="notes__footer_link tipsPopupOpen">Чаевые</a>
-										<div class="notes__main_pay payid">ОПЛАЧЕНО</div>
-									</div>
-								</div>
-							</div>
-							<div class="notes__main_block">
-								<img src="img/services/service1.svg" alt="service1" class="notes__main_block__img">
-								<div class="notes__main_block__elems">
-									<div class="notes__main_block__header fic">
-										<div class="notes__main_block__header__itesm fic">
-											<div class="notes__main_number">Запись №23184</div>
-											<div class="notes__main_address">ул. Пушкинская, д. 78А</div>
-										</div>
-										<div class="notes__main_pay payid">ОПЛАЧЕНО</div>
-									</div>
-									<div class="notes__main_block__main ">
-										<div class="notes__main_block__main_items">
-											<div class="notes__main_block__main_elems fic">
-												<div class="notes__main_block__main_elems__intro otes__main_blockWidth">Услуга:</div>
-												<div class="notes__main_block__main_elems__intro otes__main_blockWidth">Цена:</div>
-											</div>
-											<div class="notes__main_block__main_elems fic">
-												<div class="notes__main_block__main_elems__name otes__main_blockWidth">Дневной макияж</div>
-												<div class="notes__main_block__main_elems__price otes__main_blockWidth">1 400 руб</div>
-											</div>
-										</div>
-										<div class="notes__main_block__main_items">
-											<div class="notes__main_block__main_elems fic">
-												<div class="notes__main_block__main_elems__intro otes__main_blockWidth">Мастер:</div>
-												<div class="notes__main_block__main_elems__intro otes__main_blockWidth">Дата и время:</div>
-											</div>
-											<div class="notes__main_block__main_elems fic">
-												<div class="notes__main_block__main_elems__name otes__main_blockWidth">Ева Колесова</div>
-												<div class="notes__main_block__main_elems__date otes__main_blockWidth">29 ноября - 13:30 </div>
-											</div>
-										</div>
-									</div>
-									<hr class="notes__block_hr">
-									<div class="notes__footer fic">
-										<a href="#" class="notes__footer_link rewiewPopupOpen">Оставить отзыв</a>
-										<a href="#" class="notes__footer_link tipsPopupOpen">Чаевые</a>
-										<div class="notes__main_pay payid">ОПЛАЧЕНО</div>
-									</div>
-								</div>
-							</div>
+							{% endfor %}
 						</div>
 					</div>
 					<div class="col-md-12 col-lg-3 dec">
@@ -269,7 +197,7 @@
 							<button class="notes__pay_btn">Оплатить онлайн</button>
 							<div class="notes__pay_info">Вы можете оплатить услуги прямо сейчас онлайн или расплатиться  в салоне</div>
 							<div class="notes__pay_intro">Сумма оплаты</div>
-							<div class="notes__pay_sum">3 900 руб</div>
+							<div class="notes__pay_sum">0 руб</div>
 						</div>
 					</div>
 				</div>

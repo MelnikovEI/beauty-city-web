@@ -19,7 +19,7 @@ class Master(models.Model):
     salon = models.ForeignKey(Salon, on_delete=models.CASCADE)
     title = models.CharField(max_length=100, blank=True, null=True)
     services = models.ManyToManyField('Service')
-    photo = models.CharField(max_length=50)
+    photo = models.ImageField(upload_to='master_photos', blank=True)
     employment_date = models.DateField(blank=True, null=True)
 
     def __str__(self):
@@ -41,6 +41,7 @@ class Client(models.Model):
     last_name = models.CharField(max_length=50, blank=True, null=True)
     phone_number = PhoneNumberField()
     email = models.EmailField(blank=True, null=True)
+    photo = models.ImageField(upload_to='client_photos', blank=True, null=True)
 
     def __str__(self):
         return f"{self.first_name} {self.last_name} {self.phone_number}"

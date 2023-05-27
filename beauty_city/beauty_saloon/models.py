@@ -1,3 +1,4 @@
+import datetime
 from django.db import models
 from phonenumber_field.modelfields import PhoneNumberField
 
@@ -24,6 +25,12 @@ class Master(models.Model):
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
+
+    def get_experience(self):
+        experience = datetime.date.today() - self.employment_date
+        years = experience.days//365
+        months = (experience.days % 365) // 30
+        return f'{years} г. {months} мес.'
 
 
 class Service(models.Model):

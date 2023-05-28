@@ -7,9 +7,14 @@ class SalonAdmin(admin.ModelAdmin):
     list_display = ('name', 'address', 'contact_info', 'description')
 
 
+class ScheduleInline(admin.TabularInline):
+    model = Schedule
+    extra = 1
+
 @admin.register(Master)
 class MasterAdmin(admin.ModelAdmin):
     list_display = ('first_name', 'last_name', 'speciality',  'salon', 'employment_date')
+    inlines = [ScheduleInline]
 
 
 @admin.register(Service)

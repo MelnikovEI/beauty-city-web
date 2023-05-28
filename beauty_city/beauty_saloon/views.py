@@ -3,8 +3,7 @@ from datetime import datetime
 
 from django.shortcuts import render, redirect
 from django.conf import settings
-from beauty_saloon.models import Appointment, Client, Tip, Salon, Master, \
-    Service, Review
+from beauty_saloon.models import Appointment, Client, Tip, Salon, Master, Service, Review
 
 from yookassa import Configuration, Payment
 

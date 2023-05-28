@@ -7,10 +7,9 @@ class SalonAdmin(admin.ModelAdmin):
     list_display = ('name', 'address', 'contact_info', 'description')
 
 
-
 @admin.register(Master)
 class MasterAdmin(admin.ModelAdmin):
-    list_display = ('first_name', 'last_name', 'title',  'salon', 'employment_date')
+    list_display = ('first_name', 'last_name', 'speciality',  'salon', 'employment_date')
 
 
 @admin.register(Service)

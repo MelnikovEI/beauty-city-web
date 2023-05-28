@@ -1,3 +1,4 @@
+import datetime
 from django.db import models
 from phonenumber_field.modelfields import PhoneNumberField
 
@@ -17,13 +18,19 @@ class Master(models.Model):
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50, )
     salon = models.ForeignKey(Salon, on_delete=models.CASCADE)
-    title = models.CharField(max_length=100, blank=True, null=True)
+    speciality = models.CharField(max_length=100, null=True)
     services = models.ManyToManyField('Service')
     photo = models.ImageField(upload_to='master_photos', blank=True)
     employment_date = models.DateField(blank=True, null=True)
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
+
+    def get_experience(self):
+        experience = datetime.date.today() - self.employment_date
+        years = experience.days//365
+        months = (experience.days % 365) // 30
+        return f'{years} г. {months} мес.'
 
 
 class Service(models.Model):
@@ -89,7 +96,7 @@ class PromoCode(models.Model):
 
 class Review(models.Model):
     client = models.ForeignKey(Client, on_delete=models.CASCADE)
-    master = models.ForeignKey(Master, on_delete=models.CASCADE)
+    master = models.ForeignKey(Master, on_delete=models.CASCADE, related_name='reviews')
     rating = models.IntegerField()
     comment = models.TextField()
     date = models.DateTimeField(auto_now_add=True)

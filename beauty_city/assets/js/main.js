@@ -364,7 +364,7 @@ $(document).ready(function() {
 					<img src="${master.photo_url}" alt="avatar" class="accordion__block_img" style="height:40px; border-radius:50%; ">
 					<div class="accordion__block_intro" data-master_id="${master.id}">
 					${master.first_name} ${master.last_name}</div>
-					<div class="accordion__block_prof">${master.title}</div>
+					<div class="accordion__block_prof">${master.speciality}</div>
 				</div>`)
 	}
 

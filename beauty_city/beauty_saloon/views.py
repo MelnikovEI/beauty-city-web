@@ -70,7 +70,7 @@ def get_masters(request):
             'id': master.id,
             'first_name': master.first_name,
             'last_name': master.last_name,
-            'title': master.title,
+            'speciality': master.speciality,
             'photo_url': master.photo.url if master.photo else None
         }
 

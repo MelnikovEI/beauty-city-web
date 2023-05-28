@@ -7,10 +7,9 @@ class SalonAdmin(admin.ModelAdmin):
     list_display = ('name', 'address', 'contact_info', 'description')
 
 
-
 @admin.register(Master)
 class MasterAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('first_name', 'last_name', 'speciality',  'salon', 'employment_date')
 
 
 @admin.register(Service)

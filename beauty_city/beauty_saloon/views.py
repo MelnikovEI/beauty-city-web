@@ -187,7 +187,7 @@ def notes(request, client_id):
     x = datetime.now()
 
     for appointment in appointments:
-        if appointment.date_time.day <= datetime.now().day:
+        if appointment.date.day <= datetime.now().day:
             future_appointment.append(appointment)
         else:
             last_appointment.append(appointment)
@@ -203,4 +203,3 @@ def notes(request, client_id):
 def admin(request):
     context = {}
     return render(request, 'admin.html', context)
-

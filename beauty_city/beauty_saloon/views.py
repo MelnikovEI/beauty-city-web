@@ -1,10 +1,11 @@
 import uuid
 from datetime import datetime
 
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.conf import settings
 from beauty_saloon.models import Appointment, Client, Tip, Salon, Master, \
-    Service, Review
+    Service, Review, Category, Schedule
 
 from yookassa import Configuration, Payment
 
@@ -24,12 +25,88 @@ def index(request):
 
 
 def service(request):
-    context = {}
-    #if request.method == 'POST':
-        #appointment = Appointment.objects.create()
-        #appointment_id = appointment.id
-        #return redirect(f'/serviceFinally/{appointment_id}')
+    salons = Salon.objects.all()
+    context = {
+        "salons": salons,
+    }
+
     return render(request, 'service.html', context)
+
+
+def get_categories(request):
+    categories = Category.objects.all()
+    category_list = []
+
+    for category in categories:
+        category_data = {
+            'id': category.id,
+            'name': category.name,
+            'services': []
+        }
+
+        services = Service.objects.filter(category=category)
+        for service in services:
+            service_data = {
+                'id': service.id,
+                'name': service.name,
+                'price': float(service.price)
+            }
+            category_data['services'].append(service_data)
+
+        category_list.append(category_data)
+
+    return JsonResponse(category_list, safe=False)
+
+
+def get_masters(request):
+    salon_id = request.GET.get('salon_id')
+    service_id = request.GET.get('service_id')
+
+    masters = Master.objects.filter(salon_id=salon_id, services__id=service_id)
+    master_list = []
+
+    for master in masters:
+        master_data = {
+            'id': master.id,
+            'first_name': master.first_name,
+            'last_name': master.last_name,
+            'title': master.title,
+            'photo_url': master.photo.url if master.photo else None
+        }
+
+        master_list.append(master_data)
+
+    return JsonResponse(master_list, safe=False)
+
+
+def get_available_time(request):
+    try:
+        employee_work_day = Schedule.objects.get(
+            master_id=int(request.GET.get('master_id')),
+            day_of_week=request.GET.get('weekday')
+        )
+    except Schedule.DoesNotExist:
+        return JsonResponse([], safe=False)
+    if not employee_work_day.active:
+        return JsonResponse([], safe=False)
+    appointments = Appointment.objects.filter(
+        master_id=request.GET.get('master_id'),
+        date=request.GET.get('date')
+    ).values_list('appointment_hour', flat=True)
+    time_begins = set(map(lambda time: time.split(' - ')[0], appointments))
+    free_times = list(Appointment.day_times.difference(time_begins))
+    free_sorted_times = sorted(free_times, key=lambda time: datetime.strptime(time, '%H:%M'))
+    return JsonResponse(free_sorted_times, safe=False)
+
+
+def create_appointment(request):
+    appointment = Appointment.objects.create(
+        master_id=int(request.GET.get('master_id')),
+        service_id=int(request.GET.get('service_id')),
+        date=request.GET.get('date'),
+        appointment_hour=request.GET.get('hour')
+    )
+    return JsonResponse(appointment.id, safe=False)
 
 
 def serviceFinally(request, appointment_id):

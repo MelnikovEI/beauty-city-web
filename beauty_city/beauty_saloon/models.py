@@ -33,13 +33,18 @@ class Master(models.Model):
         years = experience.days//365
         years_txt = str(years)
         months = (experience.days % 365) // 30
+        months_txt = str(months)
         if years == 0:
             return f'{months} мес.'
         if years_txt[-1] in ('1', '2', '3', '4'):
             years_txt = str(years_txt) + ' г.'
         else:
             years_txt = str(years_txt) + ' л.'
-        return f'{years_txt} {months} мес.'
+        if months == 0:
+            return years_txt
+        else:
+            months_txt = str(months_txt) + ' мес.'
+        return f'{years_txt} {months_txt}'
 
 
 class Category(models.Model):

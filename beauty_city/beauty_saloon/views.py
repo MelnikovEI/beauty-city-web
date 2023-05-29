@@ -184,10 +184,13 @@ def notes(request, client_id):
     appointments = client.appointment_set.all()
     future_appointment = []
     last_appointment = []
-    x = datetime.now()
 
     for appointment in appointments:
-        if appointment.date.day <= datetime.now().day:
+        print(appointment.date.day)
+        print(datetime.now().day)
+        if appointment.date.day > datetime.now().day or \
+            (appointment.date.day == datetime.now().day and
+             datetime.strptime(appointment.appointment_hour, '%H:%M').hour >= datetime.now().hour):
             future_appointment.append(appointment)
         else:
             last_appointment.append(appointment)

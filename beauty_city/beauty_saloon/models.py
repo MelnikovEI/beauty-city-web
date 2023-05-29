@@ -27,10 +27,19 @@ class Master(models.Model):
         return f"{self.first_name} {self.last_name}"
 
     def get_experience(self):
+        if not self.employment_date:
+            return 'Нет опыта'
         experience = datetime.date.today() - self.employment_date
         years = experience.days//365
+        years_txt = str(years)
         months = (experience.days % 365) // 30
-        return f'{years} г. {months} мес.'
+        if years == 0:
+            return f'{months} мес.'
+        if years_txt[-1] in ('1', '2', '3', '4'):
+            years_txt = str(years_txt) + ' г.'
+        else:
+            years_txt = str(years_txt) + ' л.'
+        return f'{years_txt} {months} мес.'
 
 
 class Category(models.Model):

@@ -39,13 +39,16 @@
 									</div>
 									<div class="serviceFinally__form_content__block fic">
 										<div class="serviceFinally__form_content__items fic">
-										  	<img
-													src="{{ appointment.master.photo.url }}" alt="avatar" class="accordion__block_img" style="width: 80px">
-										  	<div class="accordion__block_master">{{ appointment.master.first_name }} {{ appointment.master.last_name }}</div>
+											{% if appointment.master.photo %}
+										  		<img src="{{ appointment.master.photo.url }}" alt="avatar" class="accordion__block_img" style="width: 80px">
+											{% else %}
+												<img src="{% static 'img/masters/avatar/all.svg' %}" alt="avatar" style="width:80px; border-radius: 50%;" class="accordion__block_img">
+                                			{% endif %}
+												<div class="accordion__block_master">{{ appointment.master.first_name }} {{ appointment.master.last_name }}</div>
 									    </div>
 									    <div class="serviceFinally__form_content__item fic">
-											<div class="serviceFinally__form_content__time">{{ appointment.date_time|time }}</div>
-											<div class="serviceFinally__form_content__date">{{ appointment.date_time|date }}</div>
+											<div class="serviceFinally__form_content__time">{{ appointment.date }}</div>
+											<div class="serviceFinally__form_content__date">{{ appointment.appointment_hour }}</div>
 										</div>
 									</div>
 									
